@@ -1,6 +1,12 @@
+<%@ include file="header.jsp" %>
 
-<html>
-<body>
-<h2>Hello World!</h2>
-</body>
-</html>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Hola hola</h1>
+            <img src="img/logo.png"/>
+        </div>
+    </div>
+</div>
+
+<%@ include file="footer.jsp" %>
