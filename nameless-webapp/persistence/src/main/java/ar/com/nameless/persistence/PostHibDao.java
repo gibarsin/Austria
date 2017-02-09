@@ -1,7 +1,6 @@
 package ar.com.nameless.persistence;
 
 import ar.com.nameless.interfaces.dao.PostDao;
-import ar.com.nameless.model.FreshPost;
 import ar.com.nameless.model.Post;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +19,8 @@ public class PostHibDao implements PostDao{
 
     @Transactional
     public Post newPost(String title, Post.Type type) {
-        FreshPost freshPost = new FreshPost(title, type);
-        entityManager.persist(freshPost);
-        return freshPost;
+        entityManager.persist(new Post(title, type));
+        return null;
     }
 
     public Post findById(long id) {

@@ -31,8 +31,8 @@ public class MainController {
     @RequestMapping("/")
     public ModelAndView index() {
         final ModelAndView mav = new ModelAndView("test");
-        Post post = postService.newPost("Titulo gracioso", "IMAGE");
-        System.out.println("El nuevo post es: " + post);
+        Post post = postService.newPost("Titulo piola", "IMAGE");
+        System.out.println("Post creado: " + post);
         return mav;
     }
 

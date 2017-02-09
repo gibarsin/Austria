@@ -5,8 +5,10 @@ package ar.com.nameless.model;
         - Cantidad de veces que fue flagged
  */
 import javax.persistence.*;
+import java.util.List;
 
-@MappedSuperclass
+@Entity
+@Table(name = "posts")
 public class Post {
 
     public enum Type{IMAGE, GIF};
@@ -14,7 +16,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_id_seq")
     @SequenceGenerator(sequenceName = "posts_id_seq", name = "posts_id_seq", allocationSize = 1)
-    private long id;
+    private long postId;
 
     @Column(nullable = false, length = 255)
     private String title;
@@ -31,6 +33,14 @@ public class Post {
     @Column
     private boolean enabled;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "posts_tags",
+            joinColumns = @JoinColumn(name = "postid"),
+            inverseJoinColumns = @JoinColumn(name = "tagid")
+    )
+    private List<Tag> tags;
+
     /* package */ Post(){
         //Just for Hibernate
     }
@@ -43,12 +53,12 @@ public class Post {
         this.enabled = true;
     }
 
-    public long getId() {
-        return id;
+    public long getPostId() {
+        return postId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 
     public String getTitle() {
@@ -98,19 +108,19 @@ public class Post {
 
         Post post = (Post) o;
 
-        return id == post.id;
+        return postId == post.postId;
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return (int) (postId ^ (postId >>> 32));
     }
 
     @Override
     public String toString() {
         return "Post{" +
-                "id=" + id +
+                "postId=" + postId +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
                 ", type=" + type +
