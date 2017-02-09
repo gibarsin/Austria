@@ -61,6 +61,12 @@ public class PostHibDao implements PostDao{
         return posts;
     }
 
+    public List<HotPost> getHotPosts() {
+        final TypedQuery<HotPost> query = entityManager.createQuery("from HotPost as hp order by hp.id DESC", HotPost.class);
+        List<HotPost> list = query.getResultList();
+        return list;
+    }
+
     @Transactional
     public boolean deletePost(long id) {
         //TODO: ojo que romperia al mover uno de fresh a hot

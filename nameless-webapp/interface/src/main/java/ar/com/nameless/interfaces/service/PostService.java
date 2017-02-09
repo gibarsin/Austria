@@ -1,5 +1,6 @@
 package ar.com.nameless.interfaces.service;
 
+import ar.com.nameless.model.HotPost;
 import ar.com.nameless.model.Post;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface PostService {
     Post findById(long id);
 
     List<Post> finder(String search);
+
+    List<HotPost> getHotPosts();
 
     boolean deletePost(long id);
 }

@@ -3,6 +3,7 @@ package ar.com.nameless.service;
 import ar.com.nameless.interfaces.dao.PostDao;
 import ar.com.nameless.interfaces.dao.TagDao;
 import ar.com.nameless.interfaces.service.PostService;
+import ar.com.nameless.model.HotPost;
 import ar.com.nameless.model.Post;
 import ar.com.nameless.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class PostServiceImpl implements PostService{
 
     public List<Post> finder(String search) {
         return postDao.finder(search);
+    }
+
+    public List<HotPost> getHotPosts() {
+        return postDao.getHotPosts();
     }
 
     public boolean deletePost(long id) {
