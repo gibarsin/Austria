@@ -14,7 +14,7 @@ public class FreshPost {
     @SequenceGenerator(sequenceName = "fresh_posts_id_seq", name = "fresh_posts_id_seq", allocationSize = 1)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Post post;
 
     /* package */ FreshPost(){}

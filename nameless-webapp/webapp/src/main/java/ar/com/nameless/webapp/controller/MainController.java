@@ -31,7 +31,9 @@ public class MainController {
     @RequestMapping("/")
     public ModelAndView index() {
         final ModelAndView mav = new ModelAndView("test");
-        postService.finder("banana");
+        //postService.finder("banana");
+        boolean aux = postService.deletePost(7);
+        System.out.println("Valor de aux: " + aux);
         return mav;
     }
 

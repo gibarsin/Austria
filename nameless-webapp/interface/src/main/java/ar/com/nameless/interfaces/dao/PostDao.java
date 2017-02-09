@@ -19,4 +19,6 @@ public interface PostDao {
 
     List<Post> finder(String search);
 
+    boolean deletePost(long id);
+
 }

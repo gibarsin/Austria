@@ -41,4 +41,8 @@ public class PostServiceImpl implements PostService{
     public List<Post> finder(String search) {
         return postDao.finder(search);
     }
+
+    public boolean deletePost(long id) {
+        return postDao.deletePost(id);
+    }
 }

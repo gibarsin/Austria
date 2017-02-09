@@ -14,7 +14,7 @@ public class HotPost{
     @SequenceGenerator(sequenceName = "hot_posts_id_seq", name = "hot_posts_id_seq", allocationSize = 1)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Post post;
 
     /* package */ HotPost(){}

@@ -15,4 +15,6 @@ public interface PostService {
     Post findById(long id);
 
     List<Post> finder(String search);
+
+    boolean deletePost(long id);
 }

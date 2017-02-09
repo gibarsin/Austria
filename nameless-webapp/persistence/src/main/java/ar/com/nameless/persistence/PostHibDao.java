@@ -61,6 +61,43 @@ public class PostHibDao implements PostDao{
         return posts;
     }
 
+    @Transactional
+    public boolean deletePost(long id) {
+        //TODO: ojo que romperia al mover uno de fresh a hot
+        Post post = findById(id);
+        if(post == null) return false;
+
+        HotPost hotPost = findHotPostByPost(post);
+        if(hotPost != null){
+            entityManager.remove(hotPost);
+            return true;
+        }
+
+        FreshPost freshPost = findFreshPostByPost(post);
+        if(freshPost != null){
+            entityManager.remove(freshPost);
+            return true;
+        }
+
+        return false;
+    }
+
+    private HotPost findHotPostByPost(Post post) {
+        final TypedQuery<HotPost> query = entityManager.createQuery("from HotPost as hp where hp.post= :post", HotPost.class);
+        query.setParameter("post", post);
+
+        List<HotPost> list = query.getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    private FreshPost findFreshPostByPost(Post post) {
+        final TypedQuery<FreshPost> query = entityManager.createQuery("from FreshPost as fp where fp.post= :post", FreshPost.class);
+        query.setParameter("post", post);
+
+        List<FreshPost> list = query.getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
+
     private String[] prepareTags(String search){
         //REMOVER ARTICULOS
         return search.split(" ");
