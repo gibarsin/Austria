@@ -3,6 +3,7 @@ package ar.com.nameless.model;
 /*
     Para futuro:
         - Cantidad de veces que fue flagged
+        - Date uploaded
  */
 import javax.persistence.*;
 import java.util.List;
@@ -33,7 +34,7 @@ public class Post {
     @Column
     private boolean enabled;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "posts_tags",
             joinColumns = @JoinColumn(name = "postid"),
@@ -45,12 +46,13 @@ public class Post {
         //Just for Hibernate
     }
 
-    public Post(String title,Type type) {
+    public Post(String title,Type type, List<Tag> tags) {
         this.title = title;
         this.url = null;
         this.type = type;
         this.rating = 0;
         this.enabled = true;
+        this.tags = tags;
     }
 
     public long getPostId() {
