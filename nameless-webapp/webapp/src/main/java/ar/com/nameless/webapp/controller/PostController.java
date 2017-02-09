@@ -7,17 +7,14 @@ import ar.com.nameless.webapp.controller.dto.MinPostDto;
 import ar.com.nameless.webapp.form.PostForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by root on 1/22/17.
@@ -31,19 +28,18 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private Validator validator;
+//    @Autowired
+//    private Validator validator;
 
     @GET
     @Produces(value = {MediaType.APPLICATION_JSON})
-    public Response getPosts(@QueryParam("query") final String query){
-        if(query != null && query.length()> MAX_QUERY_LENGTH){
-            return Response.status(Response.Status.REQUEST_URI_TOO_LONG).build();
-        }
+    public Response findPosts(@QueryParam("query") final String query){
+        if(query == null) return Response.status(Response.Status.BAD_REQUEST).build();
+        if(query.length()> MAX_QUERY_LENGTH) return Response.status(Response.Status.REQUEST_URI_TOO_LONG).build();
 
         List<Post> list = postService.finder(query);
         if(list.isEmpty()){
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).build();//devolver vacio
         }
 
         GenericEntity<List<Post>> posts = new GenericEntity<List<Post>>(list) {};
@@ -85,27 +81,13 @@ public class PostController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON})
-    public Response newPost(final PostForm postForm){
-
-        if(postForm == null){
-            System.out.println("Postform null");
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Set<ConstraintViolation<PostForm>> constraintViolations = validator.validate(postForm);
-
-        if(!constraintViolations.isEmpty()){
-            System.out.println("CV: " + constraintViolations.toString());
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-
+    public Response newPost(@Valid final PostForm postForm){
         System.out.println("PostForm: " + postForm.toString());
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     private long convertId(String id){
-        long dbId = 0;
+        long dbId;
         try{
             dbId = Long.valueOf(id, 36);
         }catch (Exception e){

@@ -15,9 +15,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -72,11 +69,6 @@ public class WebConfig {
         return factoryBean;
     }
 
-    @Bean
-    public Validator getValidator(){
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        return factory.getValidator();
-    }
 
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {

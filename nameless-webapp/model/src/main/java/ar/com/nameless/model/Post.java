@@ -4,6 +4,7 @@ package ar.com.nameless.model;
     Para futuro:
         - Cantidad de veces que fue flagged
         - Date uploaded
+    Falta su usuario
  */
 import javax.persistence.*;
 import java.util.List;

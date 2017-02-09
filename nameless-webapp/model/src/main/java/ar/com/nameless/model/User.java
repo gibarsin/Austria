@@ -6,6 +6,7 @@ import javax.persistence.*;
     Campos para el futuro:
         - Fecha creada la cuenta
         - Fecha ultimo login
+    FALTAN SUS POSTS
 
  */
 

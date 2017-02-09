@@ -9,7 +9,7 @@ public class MinPostDto {
 
     private String id;
     private String title;
-    private String linkTitle;
+    private String linkTitle;//Probably not necessary
     private String type;
     private String url;
 
