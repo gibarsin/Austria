@@ -28,9 +28,6 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-//    @Autowired
-//    private Validator validator;
-
     @GET
     @Produces(value = {MediaType.APPLICATION_JSON})
     public Response findPosts(@QueryParam("query") final String query){
@@ -67,9 +64,10 @@ public class PostController {
     @GET
     @Path(("/hotposts"))
     @Produces(value = {MediaType.APPLICATION_JSON})
-    public Response getHotPosts(){
-        //TODO: implement offset and limit
-        List<HotPost> list = postService.getHotPosts();
+    public Response getHotPosts(@QueryParam("offset") final long offset){
+        //TODO: change offset to String for id in base36
+
+        List<HotPost> list = postService.getHotPosts(offset);
         if(list.isEmpty()) return Response.status(Response.Status.NOT_FOUND).build();
 
         List<MinPostDto> minPostDtos = convertToMinDto(list);

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import java.util.List;
  */
 @Repository
 public class PostHibDao implements PostDao{
+
+    private static final int MAX_POSTS = 15;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -61,10 +64,24 @@ public class PostHibDao implements PostDao{
         return posts;
     }
 
-    public List<HotPost> getHotPosts() {
+    public List<HotPost> getHotPosts(long offset) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<HotPost> criteria = builder.createQuery(HotPost.class);
+        Root<HotPost> hotPostRoot = criteria.from(HotPost.class);
+        criteria.select(hotPostRoot);
+
+        if(offset > 0){
+            Expression<Number> idExp = hotPostRoot.get("id");
+            criteria.where(builder.lt(idExp, offset));
+        }
+
+        criteria.orderBy(builder.desc(hotPostRoot.get("id")));
+        return entityManager.createQuery(criteria).setMaxResults(MAX_POSTS).getResultList();
+
+/*
         final TypedQuery<HotPost> query = entityManager.createQuery("from HotPost as hp order by hp.id DESC", HotPost.class);
         List<HotPost> list = query.getResultList();
-        return list;
+        return list;*/
     }
 
     @Transactional

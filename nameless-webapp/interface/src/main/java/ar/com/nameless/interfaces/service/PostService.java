@@ -17,7 +17,7 @@ public interface PostService {
 
     List<Post> finder(String search);
 
-    List<HotPost> getHotPosts();
+    List<HotPost> getHotPosts(long offset);
 
     boolean deletePost(long id);
 }

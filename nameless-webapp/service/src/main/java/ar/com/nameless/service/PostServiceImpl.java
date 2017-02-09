@@ -43,8 +43,8 @@ public class PostServiceImpl implements PostService{
         return postDao.finder(search);
     }
 
-    public List<HotPost> getHotPosts() {
-        return postDao.getHotPosts();
+    public List<HotPost> getHotPosts(long offset) {
+        return postDao.getHotPosts(offset);
     }
 
     public boolean deletePost(long id) {
