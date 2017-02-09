@@ -11,15 +11,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -27,31 +25,11 @@ import java.util.Properties;
  * Created by root on 12/26/16.
  */
 
-@EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan({ "ar.com.nameless.webapp.controller", "ar.com.nameless.service", "ar.com.nameless.persistence" })
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig {
 
-    @Bean
-    public ViewResolver viewResolver() {
-        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/jsp/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-
-    }
-
-    //TODO: separate with Nginx
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
-        registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
-
-    }
 
     @Bean(name="multipartResolver")
     public CommonsMultipartResolver getResolver() throws IOException {
@@ -92,6 +70,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         properties.setProperty("format_sql", "true");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
+    }
+
+    @Bean
+    public Validator getValidator(){
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        return factory.getValidator();
     }
 
     @Bean

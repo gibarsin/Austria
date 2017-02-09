@@ -2,8 +2,6 @@ package ar.com.nameless.webapp.controller;
 
 import ar.com.nameless.interfaces.service.PostService;
 import ar.com.nameless.interfaces.service.UserService;
-import ar.com.nameless.model.Post;
-import ar.com.nameless.model.User;
 import ar.com.nameless.webapp.form.PostForm;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -21,12 +18,13 @@ import java.io.File;
  */
 @Controller
 public class MainController {
-
+    /*
     @Autowired
     private UserService userService;
 
     @Autowired
     private PostService postService;
+
 
     @RequestMapping("/")
     public ModelAndView index() {
@@ -57,6 +55,6 @@ public class MainController {
         ModelAndView mav = new ModelAndView("new_post");
         return mav;
     }
-
+    */
 
 }
