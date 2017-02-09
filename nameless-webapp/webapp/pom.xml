@@ -23,6 +23,12 @@
 
     <dependency>
       <groupId>ar.com.nameless</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>ar.com.nameless</groupId>
       <artifactId>service</artifactId>
       <version>${parent.version}</version>
       <scope>runtime</scope>
@@ -32,15 +38,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
     </dependency>
 
     <!-- Forms -->
@@ -56,6 +53,7 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
     </dependency>
+
 
   </dependencies>
   <build>

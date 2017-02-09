@@ -1,21 +1,40 @@
 package ar.com.nameless.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
-    private long userID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @SequenceGenerator(sequenceName = "users_id_seq", name = "users_id_seq", allocationSize = 1)
+    private long id;
+
+    @Column(nullable = false, length = 100, unique = true)
     private String username;
+
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
+
+    @Column(nullable = false, length = 100)
     private String password;
+
+    @Column
     private boolean verified;
+
+    /* package */ User(){
+        //Just for Hibernate
+    }
 
     //TODO: Facebook credentials
 
-
-    public long getUserID() {
-        return userID;
+    public long getId() {
+        return id;
     }
 
-    public void setUserID(final long userID) {
-        this.userID = userID;
+    public void setId(final long id) {
+        this.id = id;
     }
 
     public String getUsername() {
