@@ -17,4 +17,6 @@ public interface PostDao {
 
     Post findById(long id);
 
+    List<Post> finder(String search);
+
 }

@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,5 +39,30 @@ public class PostHibDao implements PostDao{
 
     public Post findById(long id) {
         return entityManager.find(Post.class, id);
+    }
+
+    public List<Post> finder(final String search){
+        String cleanSearch = search.trim().toLowerCase();
+        String titleSearch = "%"+cleanSearch.replace("%", "\\%").replace("_", "\\_")+"%";
+        String[] tagSearch = prepareTags(cleanSearch);
+        final TypedQuery<Post> query = entityManager.createQuery
+                ("select distinct p from Post as p join p.tags t where (LOWER(p.title) like :title)" +
+                        "OR (t.tag IN (:tags)) order by p.postId DESC", Post.class);
+        query.setParameter("title", titleSearch);
+        query.setParameter("tags", Arrays.asList(tagSearch));
+        List<Post> posts = query.getResultList();
+
+        //Ver posts
+        System.out.println("***Search results***");
+        for(Post post : posts){
+            System.out.println(post);
+        }
+        System.out.println("****************");
+        return posts;
+    }
+
+    private String[] prepareTags(String search){
+        //REMOVER ARTICULOS
+        return search.split(" ");
     }
 }

@@ -13,4 +13,6 @@ public interface PostService {
     Post newHotPost(String title, String type, List<String> tags);
 
     Post findById(long id);
+
+    List<Post> finder(String search);
 }

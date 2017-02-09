@@ -37,4 +37,8 @@ public class PostServiceImpl implements PostService{
     public Post findById(long id) {
         return postDao.findById(id);
     }
+
+    public List<Post> finder(String search) {
+        return postDao.finder(search);
+    }
 }
