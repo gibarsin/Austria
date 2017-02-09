@@ -24,5 +24,19 @@
       <version>${parent.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>ar.com.nameless</groupId>
+      <artifactId>model</artifactId>
+      <version>${parent.version}</version>
+    </dependency>
+
+    <!--Spring dependencies-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+
+
+
   </dependencies>
 </project>

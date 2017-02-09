@@ -8,6 +8,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,8 +17,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import org.springframework.transaction.PlatformTransactionManager;
-
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -28,7 +28,8 @@ import java.util.Properties;
  */
 
 @EnableWebMvc
-@ComponentScan({ "ar.com.nameless.webapp.controller"})
+@EnableTransactionManagement
+@ComponentScan({ "ar.com.nameless.webapp.controller", "ar.com.nameless.service", "ar.com.nameless.persistence" })
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 

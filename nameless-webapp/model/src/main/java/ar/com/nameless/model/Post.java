@@ -1,5 +1,9 @@
 package ar.com.nameless.model;
 
+/*
+    Para futuro:
+        - Cantidad de veces que fue flagged
+ */
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -15,7 +19,7 @@ public class Post {
     @Column(nullable = false, length = 255)
     private String title;
 
-    @Column(length = 255)
+    @Column(length = 255) //Necesario ???
     private String url;
 
     @Enumerated(EnumType.STRING)
@@ -29,6 +33,14 @@ public class Post {
 
     /* package */ Post(){
         //Just for Hibernate
+    }
+
+    public Post(String title,Type type) {
+        this.title = title;
+        this.url = null;
+        this.type = type;
+        this.rating = 0;
+        this.enabled = true;
     }
 
     public long getId() {
@@ -93,5 +105,17 @@ public class Post {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", type=" + type +
+                ", rating=" + rating +
+                ", enabled=" + enabled +
+                '}';
     }
 }

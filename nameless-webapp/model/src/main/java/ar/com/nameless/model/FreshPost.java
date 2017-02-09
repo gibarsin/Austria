@@ -9,4 +9,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name ="freshposts")
 public class FreshPost extends Post{
+
+    public FreshPost(String title,Type type) {
+        super(title, type);
+    }
+
 }

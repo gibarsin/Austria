@@ -2,6 +2,13 @@ package ar.com.nameless.model;
 
 import javax.persistence.*;
 
+/*
+    Campos para el futuro:
+        - Fecha creada la cuenta
+        - Fecha ultimo login
+
+ */
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -25,6 +32,13 @@ public class User {
 
     /* package */ User(){
         //Just for Hibernate
+    }
+
+    public User(String username, String email, String password){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.verified = false;
     }
 
     //TODO: Facebook credentials
@@ -67,5 +81,16 @@ public class User {
 
     public void setVerified(final boolean verified) {
         this.verified = verified;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", verified=" + verified +
+                '}';
     }
 }
