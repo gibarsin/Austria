@@ -1,2 +1,1 @@
-# NamelessPage
-9GAG Copycat
+# Project Austria
