@@ -1,5 +1,6 @@
 package ar.com.nameless.webapp.config;
 
+import ar.com.nameless.webapp.controller.EntityMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -47,8 +47,8 @@ public class WebConfig {
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriverClass(org.postgresql.Driver.class);
         ds.setUrl("jdbc:postgresql://localhost/nameless");
-        ds.setUsername("root");
-        ds.setPassword("root");
+        ds.setUsername("nameless");
+        ds.setPassword("");
 
         return ds;
     }
@@ -73,6 +73,11 @@ public class WebConfig {
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
+    }
+
+    @Bean
+    public EntityMapper entityMapper() {
+        return new EntityMapper();
     }
 
 }

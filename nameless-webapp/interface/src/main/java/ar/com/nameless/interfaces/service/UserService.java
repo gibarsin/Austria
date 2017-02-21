@@ -2,12 +2,19 @@ package ar.com.nameless.interfaces.service;
 
 import ar.com.nameless.model.User;
 
-/**
- * Created by root on 1/16/17.
- */
 public interface UserService {
 
-    User findById(long id);
+    /**
+     * Obtain user's information
+     * @param username the username of the user
+     * @return  null if the user does not exist;
+     *          else the user with its information
+     */
+    User getByUsername(String username);
 
-    User newUser(String username, String email, String password);
+    /**
+     * Create the user with the information in its state
+     * @param user the user to create
+     */
+    void create(User user);
 }
