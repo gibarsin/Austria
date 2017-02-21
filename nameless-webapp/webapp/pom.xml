@@ -75,6 +75,13 @@
       <!--<groupId>org.glassfish.jersey.ext</groupId>-->
       <!--<artifactId>jersey-bean-validation</artifactId>-->
     <!--</dependency>-->
+
+    <!-- Model mapper to DTO/form and viceversa -->
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>webapp</finalName>
