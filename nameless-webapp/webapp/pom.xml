@@ -18,19 +18,19 @@
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>interface</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
 
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>persistence</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
 
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>service</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
       <scope>runtime</scope>
     </dependency>
 
@@ -81,6 +81,41 @@
       <groupId>org.modelmapper</groupId>
       <artifactId>modelmapper</artifactId>
     </dependency>
+
+
+    <!-- Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+    </dependency>
+    <!-- Spring Security -->
+
+    <!-- Spring -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+    <!-- Spring -->
+
+    <!-- JSON JWT (User Token generator) -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+    </dependency>
+    <!-- JSON JWT (User Token generator) -->
 
   </dependencies>
   <build>

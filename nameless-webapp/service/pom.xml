@@ -21,13 +21,13 @@
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>interface</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
 
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>model</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
 
     <!--Spring dependencies-->

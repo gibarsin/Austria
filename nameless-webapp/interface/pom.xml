@@ -21,7 +21,7 @@
     <dependency>
       <groupId>ar.com.nameless</groupId>
       <artifactId>model</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
 
   </dependencies>
