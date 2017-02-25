@@ -3,6 +3,7 @@ package ar.com.nameless.webapp.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -28,7 +29,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Do not create a session
 
 		http.authorizeRequests()
-						.antMatchers("/**").authenticated();
+						//.antMatchers(HttpMethod.POST, "/posts").authenticated()
+						.antMatchers("/**").permitAll();
 
 		/** Custom Stateless Login Filter **/
 		http.addFilterBefore(new StatelessLoginFilter(

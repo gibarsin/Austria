@@ -120,6 +120,12 @@
         <version>${org.hibernate.validator}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+
       <!--Hibernate-->
       <dependency>
         <groupId>org.postgresql</groupId>

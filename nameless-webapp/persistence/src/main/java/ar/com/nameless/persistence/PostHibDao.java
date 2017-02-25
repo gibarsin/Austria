@@ -27,15 +27,15 @@ public class PostHibDao implements PostDao{
     private EntityManager entityManager;
 
     @Transactional
-    public FreshPost newFreshPost(String title, Post.Type type, List<Tag> tags) {
-        FreshPost freshPost = new FreshPost(new Post(title, type, tags));
+    public FreshPost newFreshPost(Post post) {
+        FreshPost freshPost = new FreshPost(post);
         entityManager.persist(freshPost);
         return freshPost;
     }
 
     @Transactional
-    public HotPost newHotPost(String title, Post.Type type, List<Tag> tags) {
-        HotPost hotPost = new HotPost(new Post(title, type, tags));
+    public HotPost newHotPost(Post post) {
+        HotPost hotPost = new HotPost(post);
         entityManager.persist(hotPost);
         return hotPost;
     }

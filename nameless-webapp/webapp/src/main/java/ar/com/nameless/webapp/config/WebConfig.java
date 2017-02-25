@@ -11,11 +11,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -27,19 +25,6 @@ import java.util.Properties;
 @Configuration
 public class WebConfig {
 
-
-    @Bean(name="multipartResolver")
-    public CommonsMultipartResolver getResolver() throws IOException {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-
-        //Set the maximum allowed size (in bytes) for each individual file.
-        resolver.setMaxUploadSizePerFile(5242880);//5MB
-
-        //May also set other available properties.
-
-        return resolver;
-    }
-
     //Hibernate
 
     @Bean
@@ -47,8 +32,8 @@ public class WebConfig {
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriverClass(org.postgresql.Driver.class);
         ds.setUrl("jdbc:postgresql://localhost/nameless");
-        ds.setUsername("nameless");
-        ds.setPassword("");
+        ds.setUsername("root");
+        ds.setPassword("root");
 
         return ds;
     }

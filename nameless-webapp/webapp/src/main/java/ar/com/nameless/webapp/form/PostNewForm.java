@@ -1,18 +1,13 @@
 package ar.com.nameless.webapp.form;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
  * Created by lelv on 1/4/17.
  */
-public class PostForm {
+public class PostNewForm {
 
-    @Size(min = 1, max = 5)
     private String title;
-    //private MultipartFile file;
 
     private List<String> tags;
 
@@ -32,18 +27,9 @@ public class PostForm {
         this.tags = tags;
     }
 
-    /*
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }*/
-
     @Override
     public String toString() {
-        return "PostForm{" +
+        return "PostNewForm{" +
                 "title='" + title + '\'' +
                 ", tags=" + tags +
                 '}';
