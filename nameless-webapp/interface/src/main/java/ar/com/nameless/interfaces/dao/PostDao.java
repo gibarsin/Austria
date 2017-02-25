@@ -7,9 +7,6 @@ import ar.com.nameless.model.Tag;
 
 import java.util.List;
 
-/**
- * Created by root on 1/16/17.
- */
 public interface PostDao {
     FreshPost newFreshPost(Post post);
 
