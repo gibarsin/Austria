@@ -7,6 +7,8 @@ package ar.com.nameless.model;
     Falta su usuario
  */
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,6 +21,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_id_seq")
     @SequenceGenerator(sequenceName = "posts_id_seq", name = "posts_id_seq", allocationSize = 1)
     private long postId;
+
+    @ManyToOne()
+    private User user;
 
     @Column(nullable = false, length = 255)
     private String title;
@@ -35,6 +40,12 @@ public class Post {
     @Column
     private boolean enabled;
 
+    @Column
+    private int flags;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date uploadDate;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "posts_tags",
@@ -47,13 +58,16 @@ public class Post {
         //Just for Hibernate
     }
 
-    public Post(String title,Type type, List<Tag> tags) {
+    public Post(User user, String title,Type type, List<Tag> tags) {
+        this.user = user;
         this.title = title;
         this.url = null;
         this.type = type;
         this.rating = 0;
         this.enabled = true;
         this.tags = tags;
+        this.flags = 0;
+        this.uploadDate = new Date();
     }
 
     public long getPostId() {
@@ -104,13 +118,45 @@ public class Post {
         this.type = type;
     }
 
+    public int getFlags() {
+        return flags;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    public Date getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Post post = (Post) o;
-
         return postId == post.postId;
 
     }
@@ -129,6 +175,9 @@ public class Post {
                 ", type=" + type +
                 ", rating=" + rating +
                 ", enabled=" + enabled +
+                ", flags=" + flags +
+                ", uploadDate=" + uploadDate +
+                ", tags=" + tags +
                 '}';
     }
 }

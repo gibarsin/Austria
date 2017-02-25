@@ -120,6 +120,12 @@
         <version>${org.hibernate.validator}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+
       <!--Hibernate-->
       <dependency>
         <groupId>org.postgresql</groupId>
@@ -202,6 +208,15 @@
         <version>${jwt.version}</version>
       </dependency>
       <!-- JSON JWT (User Token generator) -->
+
+      <!-- IO -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>1.3.2</version>
+      </dependency>
+
+      <!-- IO -->
 
     </dependencies>
   </dependencyManagement>

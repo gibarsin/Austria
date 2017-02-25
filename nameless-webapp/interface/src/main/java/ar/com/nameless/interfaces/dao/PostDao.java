@@ -7,13 +7,10 @@ import ar.com.nameless.model.Tag;
 
 import java.util.List;
 
-/**
- * Created by root on 1/16/17.
- */
 public interface PostDao {
-    FreshPost newFreshPost(String title, Post.Type type, List<Tag> tags);
+    FreshPost newFreshPost(Post post);
 
-    HotPost newHotPost(String title, Post.Type type, List<Tag> tags);
+    HotPost newHotPost(Post post);
 
     Post findById(long id);
 
