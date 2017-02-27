@@ -1,11 +1,5 @@
 package ar.com.nameless.model;
 
-/*
-    Para futuro:
-        - Cantidad de veces que fue flagged
-        - Date uploaded
-    Falta su usuario
- */
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +9,19 @@ import java.util.List;
 @Table(name = "posts")
 public class Post {
 
-    public enum Type{IMAGE, GIF};
+    public enum Type{
+        JPG(".jpg"), JPEG(".jpeg"), PNG(".png"), GIF(".gif");
+
+        private final String extension;
+
+        Type(String extension){
+            this.extension = extension;
+        }
+
+        public String getExtension(){
+            return this.extension;
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_id_seq")
@@ -28,17 +34,11 @@ public class Post {
     @Column(nullable = false, length = 255)
     private String title;
 
-    @Column(length = 255) //Necesario ???
-    private String url;
-
     @Enumerated(EnumType.STRING)
     private Type type;
 
     @Column
     private int rating;
-
-    @Column
-    private boolean enabled;
 
     @Column
     private int flags;
@@ -61,11 +61,9 @@ public class Post {
     public Post(User user, String title,Type type, List<Tag> tags) {
         this.user = user;
         this.title = title;
-        this.url = null;
         this.type = type;
-        this.rating = 0;
-        this.enabled = true;
         this.tags = tags;
+        this.rating = 0;
         this.flags = 0;
         this.uploadDate = new Date();
     }
@@ -86,28 +84,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public int getRating() {
         return rating;
     }
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public Type getType() {
@@ -150,6 +132,25 @@ public class Post {
         this.user = user;
     }
 
+    public String getDirectory(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getUploadDate());
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(calendar.get(Calendar.YEAR));
+        stringBuilder.append("/");
+        int aux = calendar.get(Calendar.MONTH)+1;
+        String month = aux <10 ? "0"+aux : aux+"";
+        stringBuilder.append(month);
+        stringBuilder.append("/");
+        stringBuilder.append(Long.toString(getPostId(), 36));
+        stringBuilder.append(getType().getExtension());
+
+        return stringBuilder.toString();
+
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -171,13 +172,11 @@ public class Post {
         return "Post{" +
                 "postId=" + postId +
                 ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
                 ", type=" + type +
                 ", rating=" + rating +
-                ", enabled=" + enabled +
                 ", flags=" + flags +
                 ", uploadDate=" + uploadDate +
-                ", tags=" + tags +
+                //", tags=" + tags +
                 '}';
     }
 }

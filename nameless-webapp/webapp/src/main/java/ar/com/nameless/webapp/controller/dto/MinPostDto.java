@@ -13,7 +13,7 @@ public class MinPostDto {
         this.id = Long.toString(post.getPostId(), 36);
         this.title = post.getTitle();
         this.type = post.getType().toString();
-        this.url = post.getUrl();
+        this.url = null;
     }
 
     public MinPostDto(){}
