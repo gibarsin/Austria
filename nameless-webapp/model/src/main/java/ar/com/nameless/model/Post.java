@@ -63,7 +63,7 @@ public class Post {
         this.title = title;
         this.type = type;
         this.tags = tags;
-        this.rating = 0;
+        this.rating = 100;
         this.flags = 0;
         this.uploadDate = new Date();
     }

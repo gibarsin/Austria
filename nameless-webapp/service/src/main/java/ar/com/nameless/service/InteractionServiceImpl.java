@@ -18,9 +18,9 @@ public class InteractionServiceImpl implements InteractionService{
     private final static int DISLIKE_POINTS = -10;
     private final static int FLAG_POINTS = -20;
 
-    /*package*/ final static int HOT_BARRIER = 6;
-    private final static int FRESH_BARRIER = 4;
-    private final static int FLAGS_BARRIER = 1;
+    /*package*/ final static int HOT_BARRIER = 400;
+    private final static int FRESH_BARRIER = 300;
+    private final static int FLAGS_BARRIER = 10;
 
     @Autowired
     private PostDao postDao;
