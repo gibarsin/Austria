@@ -9,6 +9,7 @@ import ar.com.nameless.model.Tag;
 import ar.com.nameless.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,10 +26,12 @@ public class PostServiceImpl implements PostService{
     private TagDao tagDao;
 
     @Override
+    @Transactional
     public Post newPost(User user, String title, Post.Type type, List<String> tags) {
         List<Tag> tagsList = tagDao.insertTags(tags);
         Post post = new Post(user, title, type, tagsList);
         if(user.isVerified()){
+            post.setRating(InteractionServiceImpl.HOT_BARRIER*2);
             return postDao.newHotPost(post).getPost();
         }
         return postDao.newFreshPost(post).getPost();
@@ -46,7 +49,4 @@ public class PostServiceImpl implements PostService{
         return postDao.getHotPosts(offset);
     }
 
-    public boolean deletePost(long id) {
-        return postDao.deletePost(id);
-    }
 }

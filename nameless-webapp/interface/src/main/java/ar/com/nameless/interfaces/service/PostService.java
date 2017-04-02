@@ -19,5 +19,4 @@ public interface PostService {
 
     List<? extends IndexedPost> getHotPosts(long offset);
 
-    boolean deletePost(long id);
 }

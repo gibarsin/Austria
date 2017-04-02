@@ -7,6 +7,10 @@ import javax.persistence.*;
 @Table(name ="hotposts")
 public class HotPost extends IndexedPost{
 
+    /* package */ HotPost(){
+        super();
+    }
+
     public HotPost(Post post){
         super(post);
     }

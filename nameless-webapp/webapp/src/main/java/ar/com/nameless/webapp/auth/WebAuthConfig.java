@@ -29,7 +29,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Do not create a session
 
 		http.authorizeRequests()
-						//.antMatchers(HttpMethod.POST, "/posts").authenticated()
+						.antMatchers(HttpMethod.POST, "/posts").authenticated()
+						.antMatchers(HttpMethod.PUT, "/posts").authenticated()
 						.antMatchers("/**").permitAll();
 
 		/** Custom Stateless Login Filter **/

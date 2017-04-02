@@ -8,7 +8,7 @@ public class IndexedPost {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgen")
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Post post;
 
     /* package */ IndexedPost(){}

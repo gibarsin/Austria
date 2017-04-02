@@ -8,7 +8,5 @@ import java.io.InputStream;
  * Created by root on 2/25/17.
  */
 public interface ImageService {
-    boolean saveImage(Post post, String extension, InputStream inputStream);
-
-     Post.Type checkType(String extension);
+    boolean saveImage(Post post, InputStream inputStream);
 }

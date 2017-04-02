@@ -1,8 +1,10 @@
 package ar.com.nameless.webapp.controller;
 
 import ar.com.nameless.interfaces.service.ImageService;
+import ar.com.nameless.interfaces.service.InteractionService;
 import ar.com.nameless.interfaces.service.PostService;
 import ar.com.nameless.interfaces.service.UserService;
+import ar.com.nameless.model.Flag;
 import ar.com.nameless.model.IndexedPost;
 import ar.com.nameless.model.Post;
 import ar.com.nameless.model.User;
@@ -36,6 +38,9 @@ public class PostController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private InteractionService interactionService;
 
     @Context
     private UriInfo uriInfo;
@@ -88,6 +93,55 @@ public class PostController {
 
     }
 
+    @PUT
+    @Path("/{id}/like")
+    public Response likePost(@PathParam("id") final String id){
+        long dbId = convertId(id);
+        if(dbId<=0) return Response.status(Response.Status.BAD_REQUEST).build();
+
+
+        if(interactionService.likePost(getLoggedUser(), dbId)){
+            return Response.ok().build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+    }
+
+    @PUT
+    @Path("/{id}/dislike")
+    public Response dislikePost(@PathParam("id") final String id){
+        long dbId = convertId(id);
+        if(dbId<=0) return Response.status(Response.Status.BAD_REQUEST).build();
+
+        if(interactionService.dislikePost(getLoggedUser(), dbId)){
+            return Response.ok().build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}/flag/{reason}")
+    public Response flagPost(@PathParam("id") final String id, @PathParam("reason") String reason){
+        long dbId = convertId(id);
+        if(dbId<=0) return Response.status(Response.Status.BAD_REQUEST).build();
+
+        Flag.Category category;
+        try{
+            category = Flag.Category.valueOf(reason);
+        }catch(IllegalArgumentException e){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+
+        if(interactionService.flagPost(getLoggedUser(), dbId, category)){
+            return Response.ok().build();
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
     /*
         Changed FormDataParam("form") PostNewForm postNewForm to
         FormDataBodyPart due to the Content-type of the form inside the
@@ -103,17 +157,21 @@ public class PostController {
         jsonPart.setMediaType(MediaType.APPLICATION_JSON_TYPE);
         PostNewForm postNewForm = jsonPart.getValueAs(PostNewForm.class);
 
-        String fileName = contentDispositionHeader.getFileName();
-        String extension = fileName.substring(fileName.lastIndexOf(".")+1);
-        Post.Type type = imageService.checkType(extension);
-        if(type == null){
+        Post.Type type;
+        try{
+            String fileName = contentDispositionHeader.getFileName();
+            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+            type = Post.Type.valueOf(extension.toUpperCase());
+        }catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Post newPost = postService.newPost(user, postNewForm.getTitle(), type, postNewForm.getTags());
+        //User user = userService.getByUsername("usuario");
+        //Post newPost = postService.newPost(user, postNewForm.getTitle(), type, postNewForm.getTags());
+        Post newPost = postService.newPost(getLoggedUser(), postNewForm.getTitle(), type, postNewForm.getTags());
 
-        if(imageService.saveImage(newPost, extension, input)){
+
+        if(imageService.saveImage(newPost, input)){
             final URI uri = uriInfo.getAbsolutePathBuilder().path(Long.toString(newPost.getPostId(),36)).build();
             return Response.created(uri).build();
         }
@@ -145,5 +203,9 @@ public class PostController {
         }
 
         return list;
+    }
+
+    private User getLoggedUser(){
+        return userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
